@@ -1,3 +1,7 @@
+body {
+    font-family: 'Rubik', sans-serif !important;
+}
+
 .contentCenter {
     display: flex;
     justify-content: center;
@@ -13,8 +17,65 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    
 }
 
 .quiz-card {
-    background-color: antiquewhite;
+    background-color: antiquewhite !important;
+}
+
+
+.card-img {
+    height: 230px;
+    object-fit: cover;
+}
+
+.card-title {
+    margin-bottom: 20px !important;
+}
+
+.background-hover:hover {
+    background-color: rgba(0, 89, 255, 0.2);
+    cursor: pointer;
+}
+
+.background-green {
+    background-color: rgb(114, 249, 114) !important;
+}
+
+.background-red {
+    background-color: rgb(246, 57, 57) !important;
+}
+
+.ScoreCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.ScoreCardElements {
+    margin: 8px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.font-orange {
+    color: orange;
+    font-weight: 600;
+}
+
+
+@media  screen and (max-height: 860px) {
+    .card-img {
+        height: 150px;
+        object-fit: fill;
+    }
+    .card-title {
+        font-size: 15px !important;
+    }
+    .card-bottom {
+        font-size: 13px;
+    }
 }

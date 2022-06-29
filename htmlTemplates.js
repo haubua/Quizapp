@@ -34,8 +34,9 @@ function renderFirstQuestion() {
 
         <div class="card-bottom">
             <div><b id="currentQuestion"></b> von <b id="amountQuestions"></b> Fragen</div>
-            <button href="#" class="btn btn-primary" id="next-button" onclick="nextQuestion()" disabled>Nächste
-                Frage</button>
+            <div id="endQuiz">
+                <button href="#" class="btn btn-primary" id="next-button" onclick="nextQuestion()" disabled>Nächste Frage</button>
+            </div>
         </div>
     </div>`
 }
@@ -76,7 +77,9 @@ function renderFirstQuestionEN() {
 
         <div class="card-bottom">
             <div><b id="currentQuestion"></b> of <b id="amountQuestions"></b> Questions</div>
-            <button href="#" class="btn btn-primary" id="next-button" onclick="nextQuestionEN()" disabled>Next Question</button>
+            <div id="endQuiz">
+                <button href="#" class="btn btn-primary" id="next-button" onclick="nextQuestionEN()" disabled>Next Question</button>
+            </div>
         </div>
     </div>`
 }
@@ -85,15 +88,13 @@ function showEnterEmail() {
     document.getElementById('whole-card').innerHTML = `
     <div class="card-img">Vegan Quiz</div>
     <div class="card-body quiz-card">
-    <h5 class="card-title" id="questiontext">Dein Quiz-Ergenis als E-mail? Einfach E-Mail-Adresse unten angeben und auf "Quiz starten" klicken!</h5>
-
-        <div class="card mb-2">
-            <input placeholder="E-Mail" typ="email">
+    <h5 class="card-title" id="questiontext">Bitte gib deinen Namen ein und beginne mit "Quiz starten"!</h5>
+   <div class="card mb-2">
+        <input placeholder="Name eingeben:" name="name" id="nameInput">
         </div>
-
         <div class="card-bottom">
         <div></div>
-            <button href="#" class="btn btn-primary" id="next-button" onclick="startGame()">Quiz Starten</button>
+        <button href="#" class="btn btn-primary" id="next-button" onclick="startGame()">Quiz Starten</button>
         </div>
     </div>`
 }
@@ -102,15 +103,13 @@ function showEnterEmailEN() {
     document.getElementById('whole-card').innerHTML = `
     <div class="card-img">Vegan Quiz</div>
     <div class="card-body quiz-card">
-    <h5 class="card-title" id="questiontext">Your quiz result as E-Mail? Just enter your E-Mail adress below and click on "Start Quiz"!</h5>
-
-        <div class="card mb-2">
-            <input placeholder="E-Mail" typ="email">
+    <h5 class="card-title" id="questiontext">Enter your Name and start with "Start Quiz"!</h5>
+ <div class="card mb-2">
+        <input placeholder="Enter Name:" name="name" id="nameInput">            
         </div>
-
         <div class="card-bottom">
         <div></div>
-            <button href="#" class="btn btn-primary" id="next-button" onclick="startGameEN()">Quiz Starten</button>
+        <button href="#" class="btn btn-primary" id="next-button" onclick="startGameEN()">Start Quiz</button>
         </div>
     </div>`
 }

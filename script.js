@@ -4,10 +4,25 @@ let Audio_success = new Audio('Audio/success.mp3');
 let Audio_fail = new Audio('Audio/fail.mp3');
 
 function init() {
-    renderStartPage();
+    selectLanguage();
+}
+
+function languageSelected() {
+    showEnterEmail();
+}
+
+function startGame() {
+    renderFirstQuestion();
     document.getElementById('amountQuestions').innerHTML = questions.length;
     document.getElementById('currentQuestion').innerHTML = curretQuestion + 1;
-    showCurrentQuestion()
+    showCurrentQuestion();
+}
+
+function startGameEN() {
+    renderFirstQuestionEN();
+    document.getElementById('amountQuestions').innerHTML = questions.length;
+    document.getElementById('currentQuestion').innerHTML = curretQuestion + 1;
+    showCurrentQuestionEN();
 }
 
 function showCurrentQuestion() {
@@ -15,6 +30,21 @@ function showCurrentQuestion() {
         quizFinished();
     } else {
         updateNextQuestion();
+    }
+    if (curretQuestion == 0) {
+    } else {
+        showProgressStart()
+    }
+}
+function quizIsFinished() {
+    return curretQuestion >= questions.length;
+}
+
+function showCurrentQuestionEN() {
+    if (quizIsFinished()) {
+        quizFinishedEN();
+    } else {
+        updateNextQuestionEN();
     }
     if (curretQuestion == 0) {
     } else {
@@ -33,11 +63,36 @@ function updateNextQuestion() {
     document.getElementById('answer4').innerHTML = `<div>${questions[curretQuestion]['answer4']}</div>`;
 }
 
+function updateNextQuestionEN() {
+    document.getElementById('questiontext').innerHTML = `<div>${questionsEN[curretQuestion]['question']}</div>`;
+    document.getElementById('answer1').innerHTML = `<div>${questionsEN[curretQuestion]['answer1']}</div>`;
+    document.getElementById('answer2').innerHTML = `<div>${questionsEN[curretQuestion]['answer2']}</div>`;
+    document.getElementById('answer3').innerHTML = `<div>${questionsEN[curretQuestion]['answer3']}</div>`;
+    document.getElementById('answer4').innerHTML = `<div>${questionsEN[curretQuestion]['answer4']}</div>`;
+}
+
 function answer(selection) {
     let answerSelected = document.getElementsByClassName('background-green');
 
     if (answerSelected.length > 0) {
-        alert('Es wurde bereits eine Antwort gewählt!')
+        alert('Du hast bereits eine Antwort gewählt!')
+    }
+    else {
+        if (answerIsCorrect(selection)) {
+            answerisCorrectAnimation(selection);
+        } else {
+            answerisFalseAnimation(selection);
+        }
+        document.getElementById('next-button').disabled = false;
+        showProgress();
+    }
+}
+
+function answerEN(selection) {
+    let answerSelected = document.getElementsByClassName('background-green');
+
+    if (answerSelected.length > 0) {
+        alert('You have alredy selected your Answer!')
     }
     else {
         if (answerIsCorrect(selection)) {
@@ -70,7 +125,14 @@ function nextQuestion() {
     curretQuestion++;
     resetAnswers();
     document.getElementById('next-button').disabled = true;
-    init();
+    startGame();
+}
+
+function nextQuestionEN() {
+    curretQuestion++;
+    resetAnswers();
+    document.getElementById('next-button').disabled = true;
+    startGameEN();
 }
 
 function resetAnswers() {
@@ -90,6 +152,15 @@ function quizFinished() {
                                                         </div>`
 }
 
+function quizFinishedEN() {
+    document.getElementById('whole-card').innerHTML = `<div class="ScoreCard">
+                                                            <img src="img/brainResult.png" class="ScoreCardElements">
+                                                            <span class="ScoreCardElements"><h2>VEGAN QUIZ<br>Finsihed!</h2></span>
+                                                            <div class="ScoreCardElements"><div class="font-orange">Your SCORE</div> <div><b>${correctAnswers} / ${questions.length}</b></div></div>
+                                                            <button href="#" class="btn btn-primary" id="restart-button" onclick="restartEN()">Restart!</button>
+                                                        </div>`
+}
+
 function showProgressStart() {
     let progress = `${Math.round((100 / questions.length) * (curretQuestion))}`
     document.getElementById('progress-bar').innerHTML = `${progress}%`;
@@ -106,5 +177,11 @@ function showProgress() {
 function restart() {
     curretQuestion = 0;
     correctAnswers = 0;
-    init()
+    startGame()
+}
+
+function restartEN() {
+    curretQuestion = 0;
+    correctAnswers = 0;
+    startGameEN()
 }

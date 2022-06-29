@@ -2,6 +2,22 @@ body {
     font-family: 'Rubik', sans-serif !important;
 }
 
+.img-language {
+    height: 100px;
+    width: 95px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.img-language:hover {
+    filter: invert(20%);
+}
+
+.selectLanguage {
+    display: flex;
+    justify-content: space-around;
+}
+
 .contentCenter {
     display: flex;
     justify-content: center;

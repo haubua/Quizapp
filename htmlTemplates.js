@@ -1,5 +1,5 @@
 function renderStartPage() {
-    document.getElementById('whole-card').innerHTML = `<img src="img/pencil.jpg" class="card-img" alt="">
+    document.getElementById('whole-card').innerHTML = `<div class="card-img">Vegan Quiz</div>
     <div class="progress">
         <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25"
             aria-valuemin="0" aria-valuemax="100"></div>

@@ -27,7 +27,17 @@ body {
 
 .card-img {
     height: 230px;
-    object-fit: cover;
+    background-image: url('img/pencil.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 45px;
+    font-weight: 900;
+    justify-content: center;
+    text-decoration: underline;
 }
 
 .card-title {

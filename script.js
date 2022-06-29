@@ -3,6 +3,7 @@ let correctAnswers = [0];
 let Audio_success = new Audio('Audio/success.mp3');
 let Audio_fail = new Audio('Audio/fail.mp3');
 let submittedName = [];
+let language = []
 
 function init() {
     selectLanguage();
@@ -10,6 +11,20 @@ function init() {
 
 function languageSelected() {
     showEnterEmail();
+}
+
+function showEnterName() {
+    language.push('german');
+    let languageAsText = JSON.stringify(languageStorage);
+    localStorage.setItem('languageStorage', languageAsText);
+    showEnterNameTemplate();
+}
+
+function showEnterNameEN() {
+    language.push('english');
+    let languageAsText = JSON.stringify(languageStorage);
+    localStorage.setItem('languageStorage', languageAsText);
+    showEnterNameENTemplate();
 }
 
 function startGame() {
@@ -72,34 +87,35 @@ function answerIsCorrect(selection) {
 
 function answerisCorrectAnimation(selection) {
     document.getElementById(selection).parentNode.classList.add('background-green')
-            Audio_success.play();
-            correctAnswers++;
+    Audio_success.play();
+    correctAnswers++;
 }
 
 function answerisFalseAnimation(selection) {
     document.getElementById(selection).parentNode.classList.add('background-red')
-            document.getElementById(questions[curretQuestion]['correctAnswer']).parentNode.classList.add('background-green')
-            Audio_fail.play();
+    document.getElementById(questions[curretQuestion]['correctAnswer']).parentNode.classList.add('background-green')
+    Audio_fail.play();
 }
 
 function nextQuestion() {
-    if (curretQuestion < (questions.length -2)) {
+    if (curretQuestion < (questions.length - 2)) {
         nextQuestionTemplate();
     } else {
         nextQuestionTemplate()
         document.getElementById('endQuiz').innerHTML = `
-        <form action="http://robert-hahn.developerakademie.net/send_mail.php" method="POST"> 
+        <form id="form" action="http://robert-hahn.developerakademie.net/send_mail.php" method="POST"> 
             <button type="button" class="btn btn-primary" id="next-button" onclick="quizFinished()">Quiz Beenden</button>
             <textarea class="d-none" name="name">${submittedName}</textarea>
        </form> 
         `
-}}
+    }
+}
 
 function nextQuestionTemplate() {
-        curretQuestion++;
-        resetAnswers();
-        document.getElementById('next-button').disabled = true;
-        renderGame();
+    curretQuestion++;
+    resetAnswers();
+    document.getElementById('next-button').disabled = true;
+    renderGame();
 }
 
 function resetAnswers() {
@@ -111,12 +127,20 @@ function resetAnswers() {
 
 
 function quizFinished() {
+    save();
+    document.getElementById('form').submit();
+   
+}
+
+
+
+function renderFinishedQuizPageDE() {
     document.getElementById('whole-card').innerHTML = `<div class="ScoreCard">
-                                                            <img src="img/brainResult.png" class="ScoreCardElements">
-                                                            <span class="ScoreCardElements"><h2>VEGAN QUIZ<br>Beendet!</h2></span>
-                                                            <div class="ScoreCardElements"><div class="font-orange">Gratuliere ${submittedName} <br>DEIN SCORE ist</div> <div><b>${correctAnswers} / ${questions.length}</b></div></div>
-                                                            <button href="#" class="btn btn-primary" id="restart-button" onclick="restart()">Neu Starten</button>
-                                                        </div>`
+    <img src="img/brainResult.png" class="ScoreCardElements">
+    <span class="ScoreCardElements"><h2>VEGAN QUIZ<br>Beendet!</h2></span>
+    <div class="ScoreCardElements"><div class="font-orange">Gratuliere ${submittedName} <br>DEIN SCORE ist</div> <div><b>${correctAnswers} / ${questions.length}</b></div></div>
+    <button href="#" class="btn btn-primary" id="restart-button" onclick="restart()">Neu Starten</button>
+</div>`
 }
 
 function showProgressStart() {
@@ -136,4 +160,11 @@ function restart() {
     curretQuestion = 0;
     correctAnswers = 0;
     renderGame()
+}
+
+function save() {
+    let nameAsText = JSON.stringify(playername);
+    let scoreAsText = JSON.stringify(playerscore);
+    localStorage.setItem('playername', nameAsText);
+    localStorage.setItem('playerscore', scoreAsText);
 }

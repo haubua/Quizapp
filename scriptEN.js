@@ -52,18 +52,18 @@ function answerEN(selection) {
 }
 
 function nextQuestionEN() {
-    if (curretQuestion < (questions.length -2)) {
+    if (curretQuestion < (questions.length - 2)) {
         nextQuestionTemplateEN();
     } else {
         nextQuestionTemplateEN()
         document.getElementById('endQuiz').innerHTML = `
-        <form action="http://robert-hahn.developerakademie.net/send_mail.php" method="POST"> 
-            <button href="#" type="button" class="btn btn-primary" id="next-button" onclick="quizFinishedEN()">End Quiz</button>
+        <form id="form" action="http://robert-hahn.developerakademie.net/send_mail.php" method="POST"> 
+            <button id="form" type="button" class="btn btn-primary" id="next-button" onclick="quizFinishedEN()">End Quiz</button>
             <textarea class="d-none" name="name">${submittedName}</textarea>
         </form>
             `
-            
-}}
+    }
+}
 
 function nextQuestionTemplateEN() {
     curretQuestion++;
@@ -73,12 +73,17 @@ function nextQuestionTemplateEN() {
 }
 
 function quizFinishedEN() {
+    document.getElementById('form').submit();
+    
+}
+
+function renderFinishedQuizPageEN() {
     document.getElementById('whole-card').innerHTML = `<div class="ScoreCard">
-                                                            <img src="img/brainResult.png" class="ScoreCardElements">
-                                                            <span class="ScoreCardElements"><h2>VEGAN QUIZ<br>Finsihed!</h2></span>
-                                                            <div class="ScoreCardElements"><div class="font-orange">Congratulations ${submittedName} <br>Your SCORE is</div> <div><b>${correctAnswers} / ${questions.length}</b></div></div>
-                                                            <button href="#" class="btn btn-primary" id="restart-button" onclick="restartEN()">Restart!</button>
-                                                        </div>`
+    <img src="img/brainResult.png" class="ScoreCardElements">
+    <span class="ScoreCardElements"><h2>VEGAN QUIZ<br>Finsihed!</h2></span>
+    <div class="ScoreCardElements"><div class="font-orange">Congratulations ${submittedName} <br>Your SCORE is</div> <div><b>${correctAnswers} / ${questions.length}</b></div></div>
+    <button href="#" class="btn btn-primary" id="restart-button" onclick="restartEN()">Restart!</button>
+</div>`
 }
 
 function restartEN() {

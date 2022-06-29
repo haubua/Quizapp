@@ -3,6 +3,7 @@
 ########### CONFIG ###############
 
 $recipient = 'robert.hahn91@gmx.at';
+$redirect = 'index.html';
 
 ########### CONFIG END ###########
 
@@ -38,10 +39,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case ("POST"): //Send the email;
         header("Access-Control-Allow-Origin: *");
 
-        $subject = "Contact From " . $_POST['name'];
+        $subject = "Quiz Finished by " . $_POST['name'];
         $headers = "From:  noreply@developerakademie.com";
 
         mail($recipient, $subject, $_POST['message'], $headers);
+        header("Location: " . $redirect); 
 
         break;
     default: //Reject any non POST or OPTIONS requests.

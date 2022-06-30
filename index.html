@@ -11,7 +11,8 @@
     <script src="htmlTemplates.js"></script>
     <script src="JSON.js"></script>
     <script src="scriptEN.js"></script>
-    
+    <script src="scriptDE.js"></script>
+
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -28,7 +29,12 @@
 <body onload="init()">
     <div class="contentCenter">
         <div class="card quiz-card" id="whole-card" style="width: 40rem;">
-            
+            <div class="card-img">Vegan Quiz</div>
+            <h5 class="text-center mt-2" id="questiontext">Sprache Auswählen ! / Select Language !</h5>
+            <div class="selectLanguage">
+                <img src="img/de.png" class="img-language" onclick="showEnterName()">
+                <img src="img/us.png" class="img-language" onclick="showEnterNameEN()">
+            </div>
         </div>
     </div>
 

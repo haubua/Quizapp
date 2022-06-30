@@ -1,83 +1,23 @@
 let curretQuestion = 0;
-let correctAnswers = [0];
+let correctAnswers = 0;
 let Audio_success = new Audio('Audio/success.mp3');
 let Audio_fail = new Audio('Audio/fail.mp3');
 let submittedName = [];
-let language = []
+let language = [];
 
 function init() {
-    selectLanguage();
-}
-
-function languageSelected() {
-    showEnterEmail();
-}
-
-function showEnterName() {
-    language.push('german');
-    let languageAsText = JSON.stringify(languageStorage);
-    localStorage.setItem('languageStorage', languageAsText);
-    showEnterNameTemplate();
-}
-
-function showEnterNameEN() {
-    language.push('english');
-    let languageAsText = JSON.stringify(languageStorage);
-    localStorage.setItem('languageStorage', languageAsText);
-    showEnterNameENTemplate();
-}
-
-function startGame() {
-    let name = document.getElementById('nameInput').value;
-    submittedName.push(name);
-    renderGame();
-}
-
-function renderGame() {
-    renderFirstQuestion();
-    document.getElementById('amountQuestions').innerHTML = questions.length;
-    document.getElementById('currentQuestion').innerHTML = curretQuestion + 1;
-    showCurrentQuestion();
-}
-
-function showCurrentQuestion() {
-    if (quizIsFinished()) {
-        quizFinished();
+    loadLocalStorage();
+    if (language.length == 1) {
+        renderFinishedQuizPage();
     } else {
-        updateNextQuestion();
-    }
-    if (curretQuestion == 0) {
-    } else {
-        showProgressStart()
-    }
-}
-function quizIsFinished() {
-    return curretQuestion >= questions.length;
-}
-
-
-function updateNextQuestion() {
-    document.getElementById('questiontext').innerHTML = `<div>${questions[curretQuestion]['question']}</div>`;
-    document.getElementById('answer1').innerHTML = `<div>${questions[curretQuestion]['answer1']}</div>`;
-    document.getElementById('answer2').innerHTML = `<div>${questions[curretQuestion]['answer2']}</div>`;
-    document.getElementById('answer3').innerHTML = `<div>${questions[curretQuestion]['answer3']}</div>`;
-    document.getElementById('answer4').innerHTML = `<div>${questions[curretQuestion]['answer4']}</div>`;
-}
-
-function answer(selection) {
-    let answerSelected = document.getElementsByClassName('background-green');
-
-    if (answerSelected.length > 0) {
-        alert('Du hast bereits eine Antwort gewählt!')
-    }
-    else {
-        if (answerIsCorrect(selection)) {
-            answerisCorrectAnimation(selection);
-        } else {
-            answerisFalseAnimation(selection);
-        }
-        document.getElementById('next-button').disabled = false;
-        showProgress();
+        deleteLocalStorage();
+        document.getElementById('whole-card').innerHTML = `     
+            <div class="card-img">Vegan Quiz</div>
+            <h5 class="text-center mt-2" id="questiontext">Sprache Auswählen ! / Select Language !</h5>
+            <div class="selectLanguage">             
+                <img src="img/de.png" class="img-language" onclick="showEnterName()">             
+                <img src="img/us.png" class="img-language" onclick="showEnterNameEN()">
+            </div>`
     }
 }
 
@@ -97,27 +37,6 @@ function answerisFalseAnimation(selection) {
     Audio_fail.play();
 }
 
-function nextQuestion() {
-    if (curretQuestion < (questions.length - 2)) {
-        nextQuestionTemplate();
-    } else {
-        nextQuestionTemplate()
-        document.getElementById('endQuiz').innerHTML = `
-        <form id="form" action="http://robert-hahn.developerakademie.net/send_mail.php" method="POST"> 
-            <button type="button" class="btn btn-primary" id="next-button" onclick="quizFinished()">Quiz Beenden</button>
-            <textarea class="d-none" name="name">${submittedName}</textarea>
-       </form> 
-        `
-    }
-}
-
-function nextQuestionTemplate() {
-    curretQuestion++;
-    resetAnswers();
-    document.getElementById('next-button').disabled = true;
-    renderGame();
-}
-
 function resetAnswers() {
     for (let i = 1; i < 5; i++) {
         document.getElementById(`answer${i}`).parentNode.classList.remove('background-green');
@@ -125,22 +44,34 @@ function resetAnswers() {
     }
 }
 
-
-function quizFinished() {
-    save();
-    document.getElementById('form').submit();
-   
+function loadLocalStorage() {
+        let languageAsText = localStorage.getItem('languageStorage');
+        let playernameAsText = localStorage.getItem('playername');
+        let playerscoreAsText = localStorage.getItem('playerscore');
+    if (languageAsText && playernameAsText) {   
+        language = JSON.parse(languageAsText);
+        submittedName = JSON.parse(playernameAsText);
+        correctAnswers = JSON.parse(playerscoreAsText);
+    }
 }
 
+function deleteLocalStorage() {
+    if (language && submittedName) {
+        language.splice(0, 1);
+        submittedName.splice(0, 1);
+    } else { }
+    correctAnswers = 0;
+    //    let languageAsText = JSON.stringify(language);
+    //    localStorage.setItem('languageStorage', languageAsText);
+    save();
+}
 
-
-function renderFinishedQuizPageDE() {
-    document.getElementById('whole-card').innerHTML = `<div class="ScoreCard">
-    <img src="img/brainResult.png" class="ScoreCardElements">
-    <span class="ScoreCardElements"><h2>VEGAN QUIZ<br>Beendet!</h2></span>
-    <div class="ScoreCardElements"><div class="font-orange">Gratuliere ${submittedName} <br>DEIN SCORE ist</div> <div><b>${correctAnswers} / ${questions.length}</b></div></div>
-    <button href="#" class="btn btn-primary" id="restart-button" onclick="restart()">Neu Starten</button>
-</div>`
+function renderFinishedQuizPage() {
+    if (language[0] == 'german') {
+        renderFinishedQuizPageDE();
+    } else {
+        renderFinishedQuizPageEN();
+    }
 }
 
 function showProgressStart() {
@@ -156,15 +87,9 @@ function showProgress() {
 
 }
 
-function restart() {
-    curretQuestion = 0;
-    correctAnswers = 0;
-    renderGame()
-}
-
 function save() {
-    let nameAsText = JSON.stringify(playername);
-    let scoreAsText = JSON.stringify(playerscore);
+    let nameAsText = JSON.stringify(submittedName);
+    let scoreAsText = JSON.stringify(correctAnswers);
     localStorage.setItem('playername', nameAsText);
     localStorage.setItem('playerscore', scoreAsText);
 }

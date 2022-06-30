@@ -85,7 +85,6 @@ function renderFirstQuestionEN() {
 }
 
 function showEnterNameTemplate() {
-    language.push(german);
     document.getElementById('whole-card').innerHTML = `
     <div class="card-img">Vegan Quiz</div>
     <div class="card-body quiz-card">
@@ -100,7 +99,7 @@ function showEnterNameTemplate() {
     </div>`
 }
 
-function showEnterNameENTemplate() {
+function showEnterNameTemplateEN() {
     document.getElementById('whole-card').innerHTML = `
     <div class="card-img">Vegan Quiz</div>
     <div class="card-body quiz-card">
@@ -115,12 +114,12 @@ function showEnterNameENTemplate() {
     </div>`
 }
 
-function selectLanguage() {
-    document.getElementById('whole-card').innerHTML = `
-    <div class="card-img">Vegan Quiz</div>
-    <h5 class="text-center mt-2" id="questiontext">Sprache Auswählen ! / Select Language !</h5>
-    <div class="selectLanguage">
-            <img src="img/de.png" class="img-language" onclick="showEnterName()">
-            <img src="img/us.png" class="img-language" onclick="showEnterNameEN()">
-    </div>`
-}
+//function selectLanguage() {
+//    document.getElementById('whole-card').innerHTML = `
+//     <div class="card-img">Vegan Quiz</div>
+//     <h5 class="text-center mt-2" id="questiontext">Sprache Auswählen ! / Select Language !</h5>
+//     <div class="selectLanguage">
+//             <img src="img/de.png" class="img-language" onclick="showEnterName()">
+//             <img src="img/us.png" class="img-language" onclick="showEnterNameEN()">
+//     </div>`
+// }

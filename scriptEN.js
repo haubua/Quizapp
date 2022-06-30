@@ -11,6 +11,14 @@ function renderGameEN() {
     showCurrentQuestionEN();
 }
 
+function showEnterNameEN() {
+    deleteLocalStorage();
+    language.push('english');
+    let languageAsText = JSON.stringify(language);
+    localStorage.setItem('languageStorage', languageAsText);
+    showEnterNameTemplateEN();
+}
+
 function showCurrentQuestionEN() {
     if (quizIsFinished()) {
         quizFinishedEN();
@@ -22,6 +30,7 @@ function showCurrentQuestionEN() {
         showProgressStart()
     }
 }
+
 function quizIsFinishedEN() {
     return curretQuestion >= questions.length;
 }
@@ -58,8 +67,9 @@ function nextQuestionEN() {
         nextQuestionTemplateEN()
         document.getElementById('endQuiz').innerHTML = `
         <form id="form" action="http://robert-hahn.developerakademie.net/send_mail.php" method="POST"> 
-            <button id="form" type="button" class="btn btn-primary" id="next-button" onclick="quizFinishedEN()">End Quiz</button>
+            <button type="button" class="btn btn-primary" id="next-button" onclick="quizFinishedEN()">End Quiz</button>
             <textarea class="d-none" name="name">${submittedName}</textarea>
+            <textarea class="d-none" name="message">${submittedName} hat ${(correctAnswers + 1)} von 8 Fragen richtig beantwortet</textarea>
         </form>
             `
     }
@@ -73,8 +83,9 @@ function nextQuestionTemplateEN() {
 }
 
 function quizFinishedEN() {
+    save();
     document.getElementById('form').submit();
-    
+    renderFinishedQuizPage
 }
 
 function renderFinishedQuizPageEN() {

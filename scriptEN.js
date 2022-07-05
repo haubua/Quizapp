@@ -11,14 +11,6 @@ function renderGameEN() {
     showCurrentQuestionEN();
 }
 
-function showEnterNameEN() {
-    deleteLocalStorage();
-    language.push('english');
-    let languageAsText = JSON.stringify(language);
-    localStorage.setItem('languageStorage', languageAsText);
-    showEnterNameTemplateEN();
-}
-
 function showCurrentQuestionEN() {
     if (quizIsFinished()) {
         quizFinishedEN();
@@ -29,10 +21,6 @@ function showCurrentQuestionEN() {
     } else {
         showProgressStart()
     }
-}
-
-function quizIsFinishedEN() {
-    return curretQuestion >= questions.length;
 }
 
 function updateNextQuestionEN() {
@@ -61,19 +49,17 @@ function answerEN(selection) {
 }
 
 function nextQuestionEN() {
-    if (curretQuestion < (questions.length - 2)) {
+    if (curretQuestion < (questions.length -2)) {
         nextQuestionTemplateEN();
     } else {
-        nextQuestionTemplateEN()
+        nextQuestionTemplateEN();
         document.getElementById('endQuiz').innerHTML = `
-        <form id="form" action="http://robert-hahn.developerakademie.net/send_mail.php" method="POST"> 
-            <button type="button" class="btn btn-primary" id="next-button" onclick="quizFinishedEN()">End Quiz</button>
+        <form action="http://robert-hahn.developerakademie.net/send_mail.php" method="POST"> 
+            <button href="#" type="button" class="btn btn-primary" id="next-button" onclick="quizFinishedEN()">End Quiz</button>
             <textarea class="d-none" name="name">${submittedName}</textarea>
-            <textarea class="d-none" name="message">${submittedName} hat ${(correctAnswers + 1)} von 8 Fragen richtig beantwortet</textarea>
         </form>
             `
-    }
-}
+}}
 
 function nextQuestionTemplateEN() {
     curretQuestion++;
@@ -83,18 +69,12 @@ function nextQuestionTemplateEN() {
 }
 
 function quizFinishedEN() {
-    save();
-    document.getElementById('form').submit();
-    renderFinishedQuizPage
-}
-
-function renderFinishedQuizPageEN() {
     document.getElementById('whole-card').innerHTML = `<div class="ScoreCard">
-    <img src="img/brainResult.png" class="ScoreCardElements">
-    <span class="ScoreCardElements"><h2>VEGAN QUIZ<br>Finsihed!</h2></span>
-    <div class="ScoreCardElements"><div class="font-orange">Congratulations ${submittedName} <br>Your SCORE is</div> <div><b>${correctAnswers} / ${questions.length}</b></div></div>
-    <button href="#" class="btn btn-primary" id="restart-button" onclick="restartEN()">Restart!</button>
-</div>`
+                                                            <img src="img/brainResult.png" class="ScoreCardElements">
+                                                            <span class="ScoreCardElements"><h2>VEGAN QUIZ<br>Finsihed!</h2></span>
+                                                            <div class="ScoreCardElements"><div class="font-orange">Congratulations ${submittedName} <br>Your SCORE is</div> <div><b>${correctAnswers} / ${questions.length}</b></div></div>
+                                                            <button href="#" class="btn btn-primary" id="restart-button" onclick="restartEN()">Restart!</button>
+                                                        </div>`
 }
 
 function restartEN() {

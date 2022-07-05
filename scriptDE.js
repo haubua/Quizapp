@@ -1,41 +1,29 @@
-function startGame() {
+function startGameDE() {
     let name = document.getElementById('nameInput').value;
     submittedName.push(name);
-    renderGame();
+    renderGameDE();
 }
 
-function renderGame() {
-    renderFirstQuestion();
+function renderGameDE() {
+    renderFirstQuestionDE();
     document.getElementById('amountQuestions').innerHTML = questions.length;
     document.getElementById('currentQuestion').innerHTML = curretQuestion + 1;
-    showCurrentQuestion();
+    showCurrentQuestionDE();
 }
 
-function showEnterName() {
-    deleteLocalStorage();
-    language.push('german');
-    let languageAsText = JSON.stringify(language);
-    localStorage.setItem('languageStorage', languageAsText);
-    showEnterNameTemplate();
-}
-
-function showCurrentQuestion() {
+function showCurrentQuestionDE() {
     if (quizIsFinished()) {
-        quizFinished();
+        quizFinishedDE();
     } else {
-        updateNextQuestion();
+        updateNextQuestionDE();
     }
     if (curretQuestion == 0) {
     } else {
-        showProgressStart();
+        showProgressStart()
     }
 }
 
-function quizIsFinished() {
-    return curretQuestion >= questions.length;
-}
-
-function updateNextQuestion() {
+function updateNextQuestionDE() {
     document.getElementById('questiontext').innerHTML = `<div>${questions[curretQuestion]['question']}</div>`;
     document.getElementById('answer1').innerHTML = `<div>${questions[curretQuestion]['answer1']}</div>`;
     document.getElementById('answer2').innerHTML = `<div>${questions[curretQuestion]['answer2']}</div>`;
@@ -43,7 +31,7 @@ function updateNextQuestion() {
     document.getElementById('answer4').innerHTML = `<div>${questions[curretQuestion]['answer4']}</div>`;
 }
 
-function answer(selection) {
+function answerDE(selection) {
     let answerSelected = document.getElementsByClassName('background-green');
 
     if (answerSelected.length > 0) {
@@ -60,46 +48,34 @@ function answer(selection) {
     }
 }
 
-function nextQuestion() {
-    if (curretQuestion < (questions.length - 2)) {
-        nextQuestionTemplate();
+function nextQuestionDE() {
+    if (curretQuestion < (questions.length -2)) {
+        nextQuestionTemplateDE();
     } else {
-        nextQuestionTemplate()
+        nextQuestionTemplateDE();
         document.getElementById('endQuiz').innerHTML = `
-        <form id="form" action="http://robert-hahn.developerakademie.net/send_mail.php" method="POST"> 
-            <button type="button" class="btn btn-primary" id="next-button" onclick="quizFinished()">Quiz Beenden</button>
-            <textarea class="d-none" name="name">${submittedName}</textarea>
-            <textarea class="d-none" name="message">${submittedName} hat ${(correctAnswers + 1)} von 8 Fragen richtig beantwortet</textarea>
-       </form> 
+            <button type="button" class="btn btn-primary" id="next-button" onclick="quizFinishedDE()">Quiz Beenden</button>
         `
-    }
-}
+}}
 
-function nextQuestionTemplate() {
+function nextQuestionTemplateDE() {
     curretQuestion++;
     resetAnswers();
     document.getElementById('next-button').disabled = true;
-    renderGame();
+    renderGameDE();
 }
 
-function quizFinished() {
-    save();
-    document.getElementById('form').submit();
-}
-
-function renderFinishedQuizPageDE() {
+function quizFinishedDE() {
     document.getElementById('whole-card').innerHTML = `<div class="ScoreCard">
-    <img src="img/brainResult.png" class="ScoreCardElements">
-    <span class="ScoreCardElements"><h2>VEGAN QUIZ<br>Beendet!</h2></span>
-    <div class="ScoreCardElements"><div class="font-orange">Gratuliere ${submittedName} <br>DEIN SCORE ist</div> <div><b>${correctAnswers} / ${questions.length}</b></div></div>
-    <button href="#" class="btn btn-primary" id="restart-button" onclick="restart()">Neu Starten</button>
-</div>`
+                                                            <img src="img/brainResult.png" class="ScoreCardElements">
+                                                            <span class="ScoreCardElements"><h2>VEGAN QUIZ<br>Beendet!</h2></span>
+                                                            <div class="ScoreCardElements"><div class="font-orange">Gratuliere ${submittedName} <br>DEIN SCORE ist</div> <div><b>${correctAnswers} / ${questions.length}</b></div></div>
+                                                            <button href="#" class="btn btn-primary" id="restart-button" onclick="restartDE()">Neu Starten</button>
+                                                        </div>`
 }
 
-function restart() {
+function restartDE() {
     curretQuestion = 0;
     correctAnswers = 0;
-    save();
-    loadLocalStorage();
-    renderGame();
+    renderGameDE()
 }

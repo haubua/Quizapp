@@ -35,7 +35,7 @@ function answerDE(selection) {
     let answerSelected = document.getElementsByClassName('background-green');
 
     if (answerSelected.length > 0) {
-        alert('Du hast bereits eine Antwort gewählt!')
+       // document.getElementById('next-button').classList.add('animation-Button')
     }
     else {
         if (answerIsCorrect(selection)) {
@@ -72,5 +72,5 @@ function quizFinishedDE() {
 function restartDE() {
     curretQuestion = 0;
     correctAnswers = 0;
-    renderGameDE()
+    init();
 }

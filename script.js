@@ -18,12 +18,19 @@ function answerIsCorrect(selection) {
 }
 
 function answerisCorrectAnimation(selection) {
-    document.getElementById(selection).parentNode.classList.add('background-green')
+    for (let i = 1; i < 5; i++) {
+        document.getElementById(`answer${i}`).parentNode.classList.remove('background-hover');
+    }
+    document.getElementById(selection).parentNode.classList.add('background-green');
+    document.getElementById
             Audio_success.play();
             correctAnswers++;
 }
 
 function answerisFalseAnimation(selection) {
+    for (let i = 1; i < 5; i++) {
+        document.getElementById(`answer${i}`).parentNode.classList.remove('background-hover');
+    }
     document.getElementById(selection).parentNode.classList.add('background-red')
             document.getElementById(questions[curretQuestion]['correctAnswer']).parentNode.classList.add('background-green')
             Audio_fail.play();

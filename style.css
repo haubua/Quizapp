@@ -40,6 +40,12 @@ body {
     background-color: antiquewhite !important;
 }
 
+.animation-Button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
 
 .card-img {
     height: 230px;

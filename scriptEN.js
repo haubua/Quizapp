@@ -71,5 +71,5 @@ function quizFinishedEN() {
 function restartEN() {
     curretQuestion = 0;
     correctAnswers = 0;
-    renderGameEN()
+    init();
 }

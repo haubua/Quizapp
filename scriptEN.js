@@ -54,11 +54,7 @@ function nextQuestionEN() {
     } else {
         nextQuestionTemplateEN();
         document.getElementById('endQuiz').innerHTML = `
-        <form action="http://robert-hahn.developerakademie.net/send_mail.php" method="POST"> 
-            <button href="#" type="button" class="btn btn-primary" id="next-button" onclick="quizFinishedEN()">End Quiz</button>
-            <textarea class="d-none" name="name">${submittedName}</textarea>
-        </form>
-            `
+        <button href="#" type="button" class="btn btn-primary" id="next-button" onclick="quizFinishedEN()">End Quiz</button>`
 }}
 
 function nextQuestionTemplateEN() {
@@ -69,12 +65,7 @@ function nextQuestionTemplateEN() {
 }
 
 function quizFinishedEN() {
-    document.getElementById('whole-card').innerHTML = `<div class="ScoreCard">
-                                                            <img src="img/brainResult.png" class="ScoreCardElements">
-                                                            <span class="ScoreCardElements"><h2>VEGAN QUIZ<br>Finsihed!</h2></span>
-                                                            <div class="ScoreCardElements"><div class="font-orange">Congratulations ${submittedName} <br>Your SCORE is</div> <div><b>${correctAnswers} / ${questions.length}</b></div></div>
-                                                            <button href="#" class="btn btn-primary" id="restart-button" onclick="restartEN()">Restart!</button>
-                                                        </div>`
+    quizFinishedENTemplate();
 }
 
 function restartEN() {

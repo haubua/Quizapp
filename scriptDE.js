@@ -66,12 +66,7 @@ function nextQuestionTemplateDE() {
 }
 
 function quizFinishedDE() {
-    document.getElementById('whole-card').innerHTML = `<div class="ScoreCard">
-                                                            <img src="img/brainResult.png" class="ScoreCardElements">
-                                                            <span class="ScoreCardElements"><h2>VEGAN QUIZ<br>Beendet!</h2></span>
-                                                            <div class="ScoreCardElements"><div class="font-orange">Gratuliere ${submittedName} <br>DEIN SCORE ist</div> <div><b>${correctAnswers} / ${questions.length}</b></div></div>
-                                                            <button href="#" class="btn btn-primary" id="restart-button" onclick="restartDE()">Neu Starten</button>
-                                                        </div>`
+   quizFinishedDETemplate();
 }
 
 function restartDE() {
